@@ -128,3 +128,40 @@ Sending 5, 100-byte ICMP Echos to 192.168.227.2, timeout is 2 seconds:
 !!!!!
 Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms
 
+7.CDP est activé par défaut:
+
+R1#show cdp
+Global CDP information:
+        Sending CDP packets every 60 seconds
+        Sending a holdtime value of 180 seconds
+        Sending CDPv2 advertisements is  enabled
+
+On notera que des annonces CDP sont envoyées toutes les 60s (device ID, version d'ios, type de plateforme, adresses,...)
+
+8.Avec la commande:
+
+R1#show cdp neighbors
+Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
+                  S - Switch, H - Host, I - IGMP, r - Repeater, P - Phone,
+                  D - Remote, C - CVTA, M - Two-port Mac Relay
+
+Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
+R1.lan1          Gig 0/1           143              R B             Gig 0/1
+R1.lan           Gig 0/1           174              R B             Gig 0/1
+R1.lan           Gig 0/1           143              R B             Gig 0/1
+R1.lan           Gig 0/1           177              R B             Gig 0/1
+R1.lan           Gig 0/1           175              R B             Gig 0/1
+R1.lan           Gig 0/1           171              R B             Gig 0/1
+R3.LAB.tripod    Gig 0/3           167              R B             Gig 0/1
+R2.LAB.tripod    Gig 0/2           134              R B             Gig 0/1
+R1               Gig 0/1           44               R B             Gig 0/1
+R1               Gig 0/1           64               R B             Gig 0/1
+R1               Gig 0/1           158              R B             Gig 0/1
+R1               Gig 0/1           131              R B             Gig 0/1
+
+Egalement avec R1#show cdp neighbors details (trop long à copier ici)
+
+
+          3. Activer DHCP pour IPv4
+       
+1.
