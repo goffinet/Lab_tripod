@@ -169,13 +169,31 @@ Egalement avec R1#show cdp neighbors details (trop long à copier ici)
 R1(config)#ip dhcp pool LANR1
 R1(dhcp-config)#network 192.168.1.0 255.255.255.0
 R1(dhcp-config)#default-router 192.168.1.1
+R1(dhcp-config)#dns-server 1.1.1.1
 
 R1(config)#ip dhcp pool LANR2
 R1(dhcp-config)#network 192.168.33.0 255.255.255.0
 R1(dhcp-config)#default-router 192.168.33.1
+R1(dhcp-config)#dns-server 1.1.1.1
 
 R1(config)#ip dhcp pool LANR3
 R1(dhcp-config)#network 192.168.65.0 255.255.255.0
 R1(dhcp-config)#default-router 192.168.65.1
+R1(dhcp-config)#dns-server 1.1.1.1
+
+2.Pour exclure les 100 premières adresses:
+
+R1(config)#ip dhcp excluded-address 192.168.1.0 192.168.1.99
+
+3.Pour configurer R2 et R3 en DHCP relay avec la commande "ip helper-address":
+
+R2(config)#int g0/1
+R2(config-if)#ip helper-address 192.168.225.1
+
+R3(config)#int g0/1
+R3(config-if)#ip helper-address 192.168.226.1
+
+
+          4. Configurer et activer le routage OSPFv2
 
 
