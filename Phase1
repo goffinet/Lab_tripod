@@ -292,41 +292,39 @@ C        192.168.227.0/24 is directly connected, GigabitEthernet0/2
 L        192.168.227.2/32 is directly connected, GigabitEthernet0/2
 
 9.On peut faire des commandes ping pour tester la connectivité
-Depuis R1:
 
-R1#ping 192.168.65.1
-Type escape sequence to abort.
-Sending 5, 100-byte ICMP Echos to 192.168.65.1, timeout is 2 seconds:
-!!!!!
-Success rate is 100 percent (5/5), round-trip min/avg/max = 2/3/4 ms
-R1#ping 192.168.33.1
-Type escape sequence to abort.
-Sending 5, 100-byte ICMP Echos to 192.168.65.1, timeout is 2 seconds:
-!!!!!
-Success rate is 100 percent (5/5), round-trip min/avg/max = 2/3/4 ms
+On démarre les PC1 PC2 et PC3, on laisse DHCP leurs attribuer une adresse ipv4 => avec la commande ip dhcp
 
-Depuis R3:
+PC1> ip dhcp
+DDORA
+IP 192.168.1.100/24
 
-R3(config)#do ping 192.168.1.1
-Type escape sequence to abort.
-Sending 5, 100-byte ICMP Echos to 192.168.1.1, timeout is 2 seconds:
-!!!!!
-Success rate is 100 percent (5/5), round-trip min/avg/max = 2/2/3 ms
-R3(config)#do ping 192.168.33.1
-Type escape sequence to abort.
-Sending 5, 100-byte ICMP Echos to 192.168.1.1, timeout is 2 seconds:
-!!!!!
-Success rate is 100 percent (5/5), round-trip min/avg/max = 2/2/3 ms
+PC2> ip dhcp
+DDORA 
+IP 192.168.33.100/24
 
-Depuis R2:
+PC3> ip dhcp
+DDORA 
+IP 192.168.65.100/24
 
-R2(config)#do ping 192.168.1.1
-Type escape sequence to abort.
-Sending 5, 100-byte ICMP Echos to 192.168.1.1, timeout is 2 seconds:
-!!!!!
-Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms
-R2(config)#do ping 192.168.65.1
-Type escape sequence to abort.
-Sending 5, 100-byte ICMP Echos to 192.168.65.1, timeout is 2 seconds:
-!!!!!
-Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms
+Depuis PC2 on ping PC3 et PC1:
+
+PC2> ping 192.168.65.100
+84 bytes from 192.168.65.100 icmp_seq=3 ttl=62 time=2.236 ms
+PC2> ping 192.168.1.100
+84 bytes from 192.168.1.100 icmp_seq=1 ttl=62 time=2.482 ms
+
+Depuis PC3 on ping PC1 et PC2:
+
+PC3> ping 192.168.33.100
+84 bytes from 192.168.33.100 icmp_seq=1 ttl=62 time=2.663 ms
+PC3> ping 192.168.1.100
+84 bytes from 192.168.1.100 icmp_seq=2 ttl=62 time=3.491 ms
+
+Idem depuis PC1...
+
+
+
+          5.  Activer les interfaces et le routage IPv6
+          
+1.
