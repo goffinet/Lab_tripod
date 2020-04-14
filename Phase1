@@ -469,27 +469,4 @@ R1(config)#int g0/1
 R1(config-if)#ip nat outside
 R1(config-if)#exit
 
-Sur R2:
-
-R2(config)#int g0/0
-R2(config-if)#ip nat inside
-R2(config-if)#exit
-R2(config)#int g0/1
-R2(config-if)#ip nat inside
-R2(config-if)#exit
-R2(config)#int g0/3
-R2(config-if)#ip nat inside
-R2(config-if)#exit
-
-Sur R3:
-
-R3(config)#int g0/0
-R3(config-if)#ip nat inside
-R3(config-if)#exit
-R3(config)#int g0/1
-R3(config-if)#ip nat inside
-R3(config-if)#exit
-R3(config)#int g0/2
-R3(config-if)#ip nat inside
-R3(config-if)#exit
 
