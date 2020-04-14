@@ -235,7 +235,8 @@ La commande passive-interface permet d'éviter la diffusion d'annonce sur le ré
 
 R1(config)#do sh ip route ospf
 
-7.R3 est DR, R2 est BDR
+7.Avec la commande "sh ip ospf neighbor"
+
 
 8.
 
