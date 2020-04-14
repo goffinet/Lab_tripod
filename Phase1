@@ -164,4 +164,18 @@ Egalement avec R1#show cdp neighbors details (trop long à copier ici)
 
           3. Activer DHCP pour IPv4
        
-1.
+1.Sur R1 on défini les dhcp pool LANR1, LANR2 et LANR3
+
+R1(config)#ip dhcp pool LANR1
+R1(dhcp-config)#network 192.168.1.0 255.255.255.0
+R1(dhcp-config)#default-router 192.168.1.1
+
+R1(config)#ip dhcp pool LANR2
+R1(dhcp-config)#network 192.168.33.0 255.255.255.0
+R1(dhcp-config)#default-router 192.168.33.1
+
+R1(config)#ip dhcp pool LANR3
+R1(dhcp-config)#network 192.168.65.0 255.255.255.0
+R1(dhcp-config)#default-router 192.168.65.1
+
+
