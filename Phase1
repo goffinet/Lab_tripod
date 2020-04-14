@@ -189,11 +189,11 @@ R1(config)#ip dhcp excluded-address 192.168.65.1 192.168.65.99
 
 3.Pour configurer R2 et R3 en DHCP relay avec la commande "ip helper-address":
 
-R2(config)#int g0/1
-R2(config-if)#ip helper-address 192.168.225.1
+R2(config)#int g0/0
+R2(config-if)#ip helper-address 192.168.1.1
 
-R3(config)#int g0/1
-R3(config-if)#ip helper-address 192.168.226.1
+R3(config)#int g0/0
+R3(config-if)#ip helper-address 192.168.1.1
 
 
           4. Configurer et activer le routage OSPFv2
