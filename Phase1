@@ -436,5 +436,57 @@ R3(config)#int g0/2
 R3(config-if)#ipv6 ospf 1 area 0
 R3(config-if)#exit
 
-2.
+
+
+          7. Activer et configurer de la connectivité IPv4 publique
+          
+1.Sur R1:
+
+R1(config)#int g0/1
+R1(config)#no shutdown
+R1(config-if)#ip add
+R1(config-if)#ip address dhcp
+R1(config-if)#access-list 1 permit 192.168.1.0 0.0.0.255
+R1(config-if)#access-list 1 permit 192.168.33.0 0.0.0.255
+R1(config-if)#access-list 1 permit 192.168.65.0 0.0.0.255
+R1(config-if)#ip nat inside source list 1 interface g0/1 overload
+
+2. Sur R1:
+
+R1(config)#int g0/0
+R1(config-if)#ip nat inside
+R1(config-if)#exit
+R1(config)#int g0/2
+R1(config-if)#ip nat inside
+R1(config-if)#exit
+R1(config)#int g0/3
+R1(config-if)#ip nat inside
+R1(config-if)#exit
+R1(config)#int g0/1
+R1(config-if)#ip nat outside
+R1(config-if)#exit
+
+Sur R2:
+
+R2(config)#int g0/0
+R2(config-if)#ip nat inside
+R2(config-if)#exit
+R2(config)#int g0/1
+R2(config-if)#ip nat inside
+R2(config-if)#exit
+R2(config)#int g0/3
+R2(config-if)#ip nat inside
+R2(config-if)#exit
+
+Sur R3:
+
+R3(config)#int g0/0
+R3(config-if)#ip nat inside
+R3(config-if)#exit
+R3(config)#int g0/1
+R3(config-if)#ip nat inside
+R3(config-if)#exit
+R3(config)#int g0/2
+R3(config-if)#ip nat inside
+R3(config-if)#exit
 
