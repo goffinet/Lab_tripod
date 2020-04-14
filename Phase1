@@ -450,6 +450,9 @@ R1(config-if)#access-list 1 permit 192.168.1.0 0.0.0.255
 R1(config-if)#access-list 1 permit 192.168.33.0 0.0.0.255
 R1(config-if)#access-list 1 permit 192.168.65.0 0.0.0.255
 R1(config-if)#ip nat inside source list 1 interface g0/1 overload
+R1(config-if)#router ospf 1
+R3(config-router)#default-information originate
+
 
 2. Sur R1:
 
