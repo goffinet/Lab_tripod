@@ -231,4 +231,93 @@ On pense à sauvegarder la configuration sur les 3 routeurs
 
 La commande passive-interface permet d'éviter la diffusion d'annonce sur le réseaux, limitant ainsi la bande passante.
 
+6.On vérifie la configuration OSPFv2:
 
+R1(config)#do sh ip route ospf
+
+7.R3 est DR, R2 est BDR
+
+8.Avec la commande "sh ip route" sur chaques routeurs on remarque:
+
+
+R1:
+      192.168.1.0/24 is variably subnetted, 2 subnets, 2 masks
+C        192.168.1.0/24 is directly connected, GigabitEthernet0/0
+L        192.168.1.1/32 is directly connected, GigabitEthernet0/0
+O     192.168.33.0/24 [110/20] via 192.168.225.2, 00:15:17, GigabitEthernet0/2
+O     192.168.65.0/24 [110/30] via 192.168.225.2, 00:14:28, GigabitEthernet0/2
+      192.168.122.0/24 is variably subnetted, 2 subnets, 2 masks
+C        192.168.122.0/24 is directly connected, GigabitEthernet0/1
+L        192.168.122.97/32 is directly connected, GigabitEthernet0/1
+      192.168.225.0/24 is variably subnetted, 2 subnets, 2 masks
+
+
+R2:
+O     192.168.1.0/24 [110/20] via 192.168.225.1, 00:15:42, GigabitEthernet0/1
+      192.168.33.0/24 is variably subnetted, 2 subnets, 2 masks
+C        192.168.33.0/24 is directly connected, GigabitEthernet0/0
+L        192.168.33.1/32 is directly connected, GigabitEthernet0/0
+O     192.168.65.0/24 [110/20] via 192.168.227.2, 00:14:59, GigabitEthernet0/3
+      192.168.225.0/24 is variably subnetted, 2 subnets, 2 masks
+C        192.168.225.0/24 is directly connected, GigabitEthernet0/1
+L        192.168.225.2/32 is directly connected, GigabitEthernet0/1
+O     192.168.226.0/24
+           [110/20] via 192.168.227.2, 00:14:59, GigabitEthernet0/3
+      192.168.227.0/24 is variably subnetted, 2 subnets, 2 masks
+C        192.168.227.0/24 is directly connected, GigabitEthernet0/3
+L        192.168.227.1/32 is directly connected, GigabitEthernet0/3
+
+R3:
+O     192.168.1.0/24 [110/30] via 192.168.227.1, 00:16:45, GigabitEthernet0/2
+O     192.168.33.0/24 [110/20] via 192.168.227.1, 00:16:45, GigabitEthernet0/2
+      192.168.65.0/24 is variably subnetted, 2 subnets, 2 masks
+C        192.168.65.0/24 is directly connected, GigabitEthernet0/0
+L        192.168.65.1/32 is directly connected, GigabitEthernet0/0
+O     192.168.225.0/24
+           [110/20] via 192.168.227.1, 00:16:45, GigabitEthernet0/2
+      192.168.226.0/24 is variably subnetted, 2 subnets, 2 masks
+C        192.168.226.0/24 is directly connected, GigabitEthernet0/1
+L        192.168.226.2/32 is directly connected, GigabitEthernet0/1
+      192.168.227.0/24 is variably subnetted, 2 subnets, 2 masks
+C        192.168.227.0/24 is directly connected, GigabitEthernet0/2
+L        192.168.227.2/32 is directly connected, GigabitEthernet0/2
+
+On peut également faire des commandes ping pour tester la connectivité
+Depuis R1:
+
+R1#ping 192.168.65.1
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 192.168.65.1, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 2/3/4 ms
+R1#ping 192.168.33.1
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 192.168.65.1, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 2/3/4 ms
+
+Depuis R3:
+
+R3(config)#do ping 192.168.1.1
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 192.168.1.1, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 2/2/3 ms
+R3(config)#do ping 192.168.33.1
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 192.168.1.1, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 2/2/3 ms
+
+Depuis R2:
+
+R2(config)#do ping 192.168.1.1
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 192.168.1.1, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms
+R2(config)#do ping 192.168.65.1
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 192.168.65.1, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms
