@@ -399,6 +399,42 @@ On peut vérifier sur chaques routeur la configuration des interfaces en ipv6 av
 
           6. Configurer et activer le routage OSPFv3
 
+1. Sur R1:
+
+R1(config)#int g0/0
+R1(config-if)#ipv6 ospf 1 area 0
+R1(config-if)#exit
+R1(config)#int g0/2
+R1(config-if)#ipv6 ospf 1 area 0
+R1(config-if)#exit
+R1(config)#int g0/3
+R1(config-if)#ipv6 ospf 1 area 0
+R1(config-if)#exit
+
+Sur R2:
+
+R2(config)#int g0/0
+R2(config-if)#ipv6 ospf 1 area 0
+R2(config-if)#exit
+R2(config)#int g0/1
+R2(config-if)#ipv6 ospf 1 area 0
+R2(config-if)#exit
+R2(config)#int g0/3
+R2(config-if)#ipv6 ospf 1 area 0
+R2(config-if)#exit
 
 
+Sur R3:
+
+R3(config)#int g0/0
+R3(config-if)#ipv6 ospf 1 area 0
+R3(config-if)#exit
+R3(config)#int g0/1
+R3(config-if)#ipv6 ospf 1 area 0
+R3(config-if)#exit
+R3(config)#int g0/2
+R3(config-if)#ipv6 ospf 1 area 0
+R3(config-if)#exit
+
+2.
 
