@@ -183,7 +183,9 @@ R1(dhcp-config)#dns-server 1.1.1.1
 
 2.Pour exclure les 100 premières adresses:
 
-R1(config)#ip dhcp excluded-address 192.168.1.0 192.168.1.99
+R1(config)#ip dhcp excluded-address 192.168.1.1 192.168.1.99
+R1(config)#ip dhcp excluded-address 192.168.33.1 192.168.33.99
+R1(config)#ip dhcp excluded-address 192.168.65.1 192.168.65.99
 
 3.Pour configurer R2 et R3 en DHCP relay avec la commande "ip helper-address":
 
