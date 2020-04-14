@@ -235,13 +235,13 @@ La commande passive-interface permet d'éviter la diffusion d'annonce sur le ré
 
 R1(config)#do sh ip route ospf
 
-7.Avec la commande "sh ip ospf neighbor"
-
+7.Comme les routeurs ont tous le même niveau de priorité, l'id le plus élevé est DR et le suivant BDR
+R3 est DR
+R2 est BDR
 
 8.
 
 9.Avec la commande "sh ip route" sur chaques routeurs on remarque:
-
 
 R1:
       192.168.1.0/24 is variably subnetted, 2 subnets, 2 masks
