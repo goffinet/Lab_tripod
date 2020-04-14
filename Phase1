@@ -1,4 +1,4 @@
-1 - Configuration globale des routeurs Core
+          1 - Configuration globale des routeurs Core
 
 1.On ouvre la topologie dans GNS3, on défini le hostname sur les routers R1, R2 et R3:
 
@@ -15,10 +15,89 @@ On créé également une clé RSA (crypto key generate rsa) sur 2048 bits. Cela 
 4.On active ssh version 2 (ip ssh version 2)
 
 On active sshV2 uniquement sur les lignes VTY:
-line vty 0 4
-transport input ssh
-login local
+
+R1(config)#line vty 0 4
+R1(config-line)#transport input ssh
+R1(config-line)#login local
 
 => On pense à sauvegarder la configuration sur les 3 routeurs avec la commande wr
 
-2 - Vérifier, activer et configurer les interfaces IPv4
+        2 - Vérifier, activer et configurer les interfaces IPv4
+
+1.Avec la commande #sh ip interface brief
+=> le status des interfaces est "administratively down"
+
+2.Sur R1 on configure les interfaces en ipV4, en mode de configuration:
+
+R1(config)#int g0/0
+R1(config-if)#no shutdown
+R1(config-if)#ip address 192.168.1.1 255.255.255.0
+R1(config-if)#exit
+
+R1(config)#int g0/2
+R1(config-if)#no shutdown
+R1(config-if)#ip address 192.168.225.1 255.255.255.0
+R1(config-if)#exit
+
+R1(config)#int g0/3
+R1(config-if)#no shutdown
+R1(config-if)#ip address 192.168.226.1 255.255.255.0
+R1(config-if)#exit
+
+R1(config)#int g0/1
+R1(config-if)#no shutdown
+R1(config-if)#ip address dhcp
+R1(config-if)#access-list 1 permit 192.168.1.0 0.0.0.255
+R1(config-if)#exit
+
+On pense à sauvegarder la configuration et on note sur R1:
+GigabitEthernet0/0         192.168.1.1     YES NVRAM  up                    up
+GigabitEthernet0/1         192.168.122.97  YES DHCP   up                    up
+GigabitEthernet0/2         192.168.225.1   YES NVRAM  up                    up
+GigabitEthernet0/3         192.168.226.1   YES NVRAM  up                    up
+
+2.De même sur R2:
+
+R2(config)#int g0/0
+R2(config-if)#no shutdown
+R2(config-if)#ip address 192.168.33.1 255.255.255.0
+R2(config-if)#exit
+
+R2(config)#int g0/1
+R2(config-if)#no shutdown
+R2(config-if)#ip address 192.168.225.2 255.255.255.0
+R2(config-if)#exit
+
+R2(config)#int g0/3
+R2(config-if)#no shutdown
+R2(config-if)#ip address 192.168.227.1 255.255.255.0
+R2(config-if)#exit
+
+Soit:
+GigabitEthernet0/0         192.168.33.1    YES manual up                    up
+GigabitEthernet0/1         192.168.225.2   YES manual up                    up
+GigabitEthernet0/2         unassigned      YES unset  administratively down down
+GigabitEthernet0/3         192.168.227.1   YES manual up                    up
+
+3.Sur R3:
+
+R3(config)#int g0/0
+R3(config-if)#no shutdown
+R3(config-if)#ip address 192.168.65.1 255.255.255.0
+R3(config-if)#exit
+
+R3(config)#int g0/1
+R3(config-if)#no shutdown
+R3(config-if)#ip address 192.168.226.2 255.255.255.0
+R3(config-if)#exit
+
+R3(config)#int g0/2
+R3(config-if)#no shutdown
+R3(config-if)#ip address 192.168.227.2 255.255.255.0
+R3(config-if)#exit
+
+Soit:
+GigabitEthernet0/0         192.168.65.1    YES manual up                    up
+GigabitEthernet0/1         192.168.226.2   YES manual up                    up
+GigabitEthernet0/2         192.168.227.2   YES manual up                    up
+
