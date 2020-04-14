@@ -205,6 +205,7 @@ R1(config-router)#router-id 1.1.1.1
 R1(config-router)#passive-interface g0/0
 R1(config-router)#network 192.168.1.0 0.0.0.255 area 0
 R1(config-router)#network 192.168.225.0 0.0.0.255 area 0
+R1(config-router)#network 192.168.226.0 0.0.0.255 area 0
 R1(config-router)#auto-cost reference-bandwidth 10000
 
 De même sur R2:
@@ -327,4 +328,77 @@ Idem depuis PC1...
 
           5.  Activer les interfaces et le routage IPv6
           
-1.
+1.On défini les adresse link local (FE80::...)
+
+Sur R1:
+
+R1(config)#int g0/0
+R1(config-if)#ipv6 address FE80::1 link-local
+R1(config-if)#exit
+R1(config)#int g0/2
+R1(config-if)#ipv6 address FE80::1 link-local
+R1(config-if)#exit
+R1(config)#int g0/3
+R1(config-if)#ipv6 address FE80::1 link-local
+R1(config-if)#exit
+
+Sur R2:
+
+R2(config)#int g0/0
+R2(config-if)#ipv6 address FE80::2 link-local
+R2(config-if)#exit
+R2(config)#int g0/1
+R2(config-if)#ipv6 address FE80::2 link-local
+R2(config-if)#exit
+R2(config)#int g0/3
+R2(config-if)#ipv6 address FE80::2 link-local
+R2(config-if)#exit
+
+Sur R3:
+
+R3(config)#int g0/0
+R3(config-if)#ipv6 address FE80::3 link-local
+R3(config-if)#exit
+R3(config)#int g0/1
+R3(config-if)#ipv6 address FE80::3 link-local
+R3(config-if)#exit
+R3(config)#int g0/2
+R3(config-if)#ipv6 address FE80::3 link-local
+R3(config-if)#exit
+
+2.Pour les adresses ULA
+
+Sur R1:
+
+R1(config)#int g0/0
+R1(config-if)#ipv6 address FD00:FD00:FD00:1::1/64
+R1(config-if)#exit
+
+Sur R2:
+
+R2(config)#int g0/0
+R2(config-if)#ipv6 address FD00:FD00:FD00:2::1/64
+R2(config-if)#exit
+
+Sur R3:
+
+R3(config)#int g0/0
+R3(config-if)#ipv6 address FD00:FD00:FD00:3::1/64
+R3(config-if)#exit
+
+3.Sur chaques routeurs:
+
+R1(config)#ipv6 unicast-routing
+
+R2(config)#ipv6 unicast-routing
+
+R3(config)#ipv6 unicast-routing
+
+On peut vérifier sur chaques routeur la configuration des interfaces en ipv6 avec "sh ipv6 int brief"
+
+
+          6. Configurer et activer le routage OSPFv3
+
+
+
+
