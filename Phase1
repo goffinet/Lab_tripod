@@ -101,3 +101,30 @@ GigabitEthernet0/0         192.168.65.1    YES manual up                    up
 GigabitEthernet0/1         192.168.226.2   YES manual up                    up
 GigabitEthernet0/2         192.168.227.2   YES manual up                    up
 
+5.Les interfaces sont à l'état "up" grâce à la commande "no shutdown"
+
+6.On utilise la commande ping,
+De R1 vers R2:
+
+R1#ping 192.168.225.2
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 192.168.225.2, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms
+
+De R1 vers R3:
+
+R1#ping 192.168.226.2
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 192.168.226.2, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms
+
+De R2 vers R3:
+
+R2#ping 192.168.227.2
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 192.168.227.2, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms
+
