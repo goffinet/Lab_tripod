@@ -1,28 +1,28 @@
-          1 - Configuration globale des routeurs Core
+# 1 - Configuration globale des routeurs Core
 
-1.On ouvre la topologie dans GNS3, on défini le hostname sur les routers R1, R2 et R3:
+1. On ouvre la topologie dans GNS3, on défini le hostname sur les routers R1, R2 et R3: En mode configuration (conf t), ensuite le hostname (hostname R1, hostname R2,...)
 
-En mode configuration (conf t), ensuite le hostname (hostname R1, hostname R2,...)
+   On défini également le nom de domaine (ip domain-name LAB.tripod)
 
-On défini également le nom de domaine (ip domain-name LAB.tripod)
+   On créé également une clé RSA (crypto key generate rsa) sur 2048 bits. Cela permettra d'activer la version 2 de ssh plus tard.
 
-On créé également une clé RSA (crypto key generate rsa) sur 2048 bits. Cela permettra d'activer la version 2 de ssh plus tard.
+2. Toujours en mode configuration, on défini le mot de passe testtest (enable secret testtest)
 
-2.Toujours en mode configuration, on défini le mot de passe testtest (enable secret testtest)
+3. En mode configuration on défini le user root avec le mot de passe testtest (username root secret testtest)
 
-3.En mode configuration on défini le user root avec le mot de passe testtest (username root secret testtest)
-
-4.On active ssh version 2 (ip ssh version 2)
+4. On active ssh version 2 (ip ssh version 2)
 
 On active sshV2 uniquement sur les lignes VTY:
 
+```
 R1(config)#line vty 0 4
 R1(config-line)#transport input ssh
 R1(config-line)#login local
+```
 
 => On pense à sauvegarder la configuration sur les 3 routeurs avec la commande wr
 
-        2 - Vérifier, activer et configurer les interfaces IPv4
+### 2 - Vérifier, activer et configurer les interfaces IPv4
 
 1.Avec la commande #sh ip interface brief
 => le status des interfaces est "administratively down"
